@@ -513,7 +513,7 @@ if $sock < 1 Then
   Return -1
 EndIf
 
-$data = TCPRecv($sock,1024,0)
+$data = TCPRecv($sock,PORT,0)
 
 if @error Then
 
