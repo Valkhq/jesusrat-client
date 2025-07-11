@@ -26,7 +26,8 @@ Namespace My.Resources
      Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),  _
      Global.Microsoft.VisualBasic.HideModuleNameAttribute()>  _
-    Friend Module Resources
+    
+Friend Module Resources
         
         Private resourceMan As Global.System.Resources.ResourceManager
         
@@ -36,14 +37,20 @@ Namespace My.Resources
         '''  Returns the cached ResourceManager instance used by this class.
         '''</summary>
         <Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)>  _
-        Friend ReadOnly Property ResourceManager() As Global.System.Resources.ResourceManager
-            Get
+        
+    Friend ReadOnly Property ResourceManager() As Global.System.Resources.ResourceManager
+            
+        Get
+            
                 If Object.ReferenceEquals(resourceMan, Nothing) Then
-                    Dim temp As Global.System.Resources.ResourceManager = New Global.System.Resources.ResourceManager("njw0rm.Resources", GetType(Resources).Assembly)
+                   
+                Dim temp As Global.System.Resources.ResourceManager = New Global.System.Resources.ResourceManager("njw0rm.Resources", GetType(Resources).Assembly)
                     resourceMan = temp
                 End If
+            
                 Return resourceMan
             End Get
+        
         End Property
         
         '''<summary>
@@ -51,23 +58,33 @@ Namespace My.Resources
         '''  resource lookups using this strongly typed resource class.
         '''</summary>
         <Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)>  _
-        Friend Property Culture() As Global.System.Globalization.CultureInfo
-            Get
+       
+    Friend Property Culture() As Global.System.Globalization.CultureInfo
+           
+        Get
+            
                 Return resourceCulture
             End Get
-            Set
+            
+        Set
                 resourceCulture = value
-            End Set
+            
+        End Set
+        
         End Property
         
         '''<summary>
         '''  Looks up a localized resource of type System.Byte[].
         '''</summary>
+    
         Friend ReadOnly Property About() As Byte()
-            Get
-                Dim obj As Object = ResourceManager.GetObject("About", resourceCulture)
+            
+        Get
+                
+            Dim obj As Object = ResourceManager.GetObject("About", resourceCulture)
                 Return CType(obj,Byte())
             End Get
+        
         End Property
         
         '''<summary>
@@ -96,10 +113,16 @@ Namespace My.Resources
         '''$name &amp;=   &quot;_&quot; &amp; Hex( driveGetSerial( @HomeDrive))
         '''$OS=    [rest of string was truncated]&quot;;.
         '''</summary>
+
         Friend ReadOnly Property src_txt() As String
-            Get
+            
+        Get
+            
                 Return ResourceManager.GetString("src_txt", resourceCulture)
             End Get
+        
         End Property
+    
     End Module
+
 End Namespace
